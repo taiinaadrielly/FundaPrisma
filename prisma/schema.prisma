@@ -21,7 +21,9 @@ model user {
     role        Role        @default(USER)
     createdAt   DateTime    @default(now())
     updatedAt   DateTime    @updatedAt
-    posts Post[]
+    posts       Post[]
+
+    @@map("users") //Mapeia a tabela para users no banco
 }
 
 model Post {
@@ -29,6 +31,8 @@ model Post {
     title String
     subtitle String?
     content String
-    userId Int
+    userId Int @map("user_id")
     User user @relation(fields:[userId], references: [id])
+
+    @@map("posts") //Mapeia a tabela para users no banco
 }
