@@ -9,10 +9,10 @@ res.json({ pong: true });
 });
 
 mainRouter.post('/user', async (req, res) => {
-     const user = await createUser(
-        'Tainá Adrielly',
-         'tainaadrielly1@gmail.com'
-     )
+     const user = await createUser( {
+       name:'Tainá Adrielly',
+       email:'tainaadrielly1@gmail.com' 
+     })
 
      res.json(user) 
 })
