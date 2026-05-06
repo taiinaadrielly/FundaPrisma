@@ -15,7 +15,9 @@ mainRouter.post('/user', async (req, res) => {
      });
      if (user) {
       res.status(201).json({ user })
-     } else {}
+     } else {
+      res.status(400)
+     }
 
      res.json(user) 
 })
