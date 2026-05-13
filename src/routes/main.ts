@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { prisma } from '../libs/prisma'
-import { createUser, createUsers } from '../services/user';
+import { createUser, createUsers, getAllUsers } from '../services/user';
 
 
 export const mainRouter = Router();
@@ -11,8 +11,14 @@ res.json({ pong: true });
 
 mainRouter.post('/user', async (req, res) => {
      const user = await createUser( {
-       name:'Tainá Adrielly',
-       email:'tainaadrielly1@gmail.com' 
+       name:'Wildd bill',
+       email:'Wildd.bill@gmail.com',
+       posts: {
+        create: {
+          title:'Post 1 - Wild Bill',
+          content: 'Content of post 1 - Wild Bill'
+        }
+       }
      });
      if (user) {
       res.status(201).json({ user })
@@ -37,4 +43,14 @@ mainRouter.post('/users', async (req, res) => {
   }else {
      res.status(400).json({ error: 'Error creating users' })
   }
+})
+
+mainRouter.get('/users', async (req,res) => {
+  const users = await getAllUsers()
+  if (users) {
+    res.json({ users })
+  } else {
+    res.status(500).json({ error: 'Error fetching users' })
+  }
+
 })
