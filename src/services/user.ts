@@ -1,16 +1,9 @@
 import { Prisma } from "@prisma/client"
 import { prisma } from "../libs/prisma"
 
-
-//type CreateUserProps = {
-// name:string
-// email: string
-//}
-
 export const createUser = async (data: Prisma.userCreateInput) => {
     try {
         //const user = await prisma.user.create({
-        //  data
         //})return user
 
         return await prisma.user.create({ data })
@@ -50,6 +43,23 @@ export const getAllUsers = async () => {
         })
     } catch (error) {
         console.log('Error fetching users:', error)
+        return false
+    }
+}
+
+export const getUserByEmail = async (email: string) => {
+    try {
+        return await prisma.user.findUnique({
+            where: { email },
+            select: {
+                id:true,
+                name: true,
+                email:true,
+                status: true
+            }
+        })
+    } catch (error) {
+        console.log('Error fetching user by email: ', error)
         return false
     }
 }
